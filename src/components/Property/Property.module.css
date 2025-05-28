@@ -1,0 +1,37 @@
+.property {
+    width: 21rem;
+    height: 25rem;
+    border-radius: var(--space3);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+    background: #fff;
+    text-align: start;
+}
+
+.property a {
+    text-decoration: none;
+    color: var(--dark);
+}
+
+.details {
+    padding: 2rem;
+    padding-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space1);
+}
+
+.price {
+    font-weight: 700;
+}
+
+.details_info {
+    font-weight: 500;
+    color: var(--neutral);
+}
+
+.image {
+    width: 100%;
+    height: 60%;
+    border-radius: var(--space3);
+    background: var(--light);
+}

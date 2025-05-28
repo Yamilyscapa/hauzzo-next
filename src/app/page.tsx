@@ -1,95 +1,95 @@
-import Image from "next/image";
+"use client";
+
 import styles from "./page.module.css";
+// Components
+import Navbar from "@/components/ui/Navbar/Navbar";
+import Searchbar from "@/components/ui/Searchbar/Searchbar";
+import Property from "@/components/Property/Property";
+import { Property as PropertyType } from "@/types";
 
-export default function Home() {
+import { useEffect, useState } from "react";
+// Logic
+import { getManyProperties } from "@/logic/properties/properties.controller";
+
+export default function App() {
+  const [properties, setProperties] = useState<PropertyType[]>([]);
+
+  // Fetch properties from the API
+  useEffect(() => {
+    (async () => {
+      try {
+        if (localStorage.getItem('properties')) {
+          const cachedProperties = localStorage.getItem('properties');
+          if (cachedProperties) {
+            const cachedData: PropertyType[] = JSON.parse(cachedProperties);
+            setProperties(cachedData);
+            return;
+          }
+        }
+
+        // Fetch properties from the API
+
+        const data: PropertyType[] = await getManyProperties(4);
+
+        function savePropertiesToLocalStorage(properties: PropertyType[]) {
+          localStorage.setItem('properties', JSON.stringify(properties));
+        }
+
+        setProperties(data);
+        savePropertiesToLocalStorage(data);
+      } catch (error) {
+        console.error("Error fetching properties:", error);
+      }
+    })()
+  }, [])
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <>
+      <Navbar />
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+      <section className={`container center ${styles.hero}`}>
+        <div className={` ${styles.hero_container}`}>
+
+          <div className={styles.hero_text}>
+            <h1 className={styles.h1}>Encuentra un <span className={styles.h1_detail}>hogar</span>,
+              pensado para ti</h1>
+            <p className={styles.subtitle}>Imagina tu hogar ideal, nosotros lo encontramos según tus gustos.</p>
+          </div>
+
+          <div className={styles.searchbar}>
+            <Searchbar />
+          </div>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+
+
+        <div className={`flex ${styles.properties_container}`}>
+          {properties.map((property) => (
+            <Property key={property.id} data={property} />
+          ))}
+        </div>
+
+      </section>
+
+      <section className={`section ${styles.properties}`}>
+        <h3 className={styles.h3}>Encuentra por ubicacion</h3>
+
+        <div className={`flex ${styles.properties_container}`}>
+          {properties.map((property) => (
+            <Property key={property.id} data={property} />
+          ))}
+        </div>
+      </section>
+
+      <section className={`section ${styles.properties}`}>
+        <h3 className={styles.h3}>Destacadas</h3>
+
+
+        <div className={`flex ${styles.properties_container}`}>
+          {properties.map((property) => (
+            <Property key={property.id} data={property} />
+          ))}
+        </div>
+      </section>
+    </>
+  )
 }
