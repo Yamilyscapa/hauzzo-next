@@ -4,8 +4,32 @@ import { Property as PropertyType } from "@/types";
 *  @params limit: number - The maximum number of properties to fetch, default is 10 
 * */
 
-export async function getManyProperties(limit: number = 10): Promise<PropertyType[]> {
+interface CacheConfig {
+    cache?: 'default' | 'no-store' | 'reload' | 'force-cache' | 'only-if-cached';
+    next?: {
+        revalidate?: number; // Time in seconds to revalidate the cache
+        tags?: string[]; // Tags for cache invalidation
+    };
+}
+/**
+ * 
+ * @param limit - The maximum number of properties to fetch, default is 10
+ * @param cache - Optional cache configuration for the fetch request
+ * @param cache.cache - Cache mode, can be 'default', 'no-store', 'reload', 'force-cache', or 'only-if-cached'
+ * @param cache.next - Next.js specific cache configuration
+ * @param cache.next.revalidate - Time in seconds to revalidate the cache
+ * @param cache.next.tags - Tags for cache invalidation
+ * @returns 
+ */
+
+export async function getManyProperties(limit: number = 10, cache?: CacheConfig): Promise<PropertyType[]> {
     const API_URL = process.env.NEXT_PUBLIC_API_HOST ?? ''
+    let cacheConfig = {}
+
+    if (cache) {
+        cacheConfig = { ...cache }
+    }
+
 
     if (API_URL === '') {
         throw new Error('API URL is not defined');
@@ -17,7 +41,7 @@ export async function getManyProperties(limit: number = 10): Promise<PropertyTyp
             headers: {
                 'Content-Type': 'application/json',
             },
-
+            ...cacheConfig
         });
 
         if (!response.ok) {
@@ -33,7 +57,7 @@ export async function getManyProperties(limit: number = 10): Promise<PropertyTyp
         if (res.data.length === 0) {
             console.warn('No properties found');
         }
-        
+
         return res.data as PropertyType[];
     } catch (error) {
         throw new Error(`Error fetching properties: ${error}`);

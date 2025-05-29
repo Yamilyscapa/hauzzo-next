@@ -27,16 +27,15 @@ export default function App() {
           }
         }
 
-        // Fetch properties from the API
-
-        const data: PropertyType[] = await getManyProperties(4);
-
-        function savePropertiesToLocalStorage(properties: PropertyType[]) {
-          localStorage.setItem('properties', JSON.stringify(properties));
-        }
+        const data: PropertyType[] = await getManyProperties(4, {
+          cache: 'force-cache', // Use cache to avoid unnecessary requests
+          next: {
+            revalidate: 60 * 60, // Revalidate every hour
+            tags: ['main-properties']
+          }
+        });
 
         setProperties(data);
-        savePropertiesToLocalStorage(data);
       } catch (error) {
         console.error("Error fetching properties:", error);
       }

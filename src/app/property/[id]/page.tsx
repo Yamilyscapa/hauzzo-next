@@ -17,7 +17,10 @@ export default async function PropertyPage({ params }: Props) {
             `${process.env.NEXT_PUBLIC_API_HOST}/properties/${params.id}`,
             {
                 cache: 'force-cache',
-                next: { revalidate: 60 * 60 } // 1 hour
+                next: {
+                    revalidate: 600,
+                    tags: ['property', `property-${params.id}`]
+                }, // Revalidate every 10 minutes
             }
         )
 
