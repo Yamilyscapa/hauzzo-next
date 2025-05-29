@@ -85,16 +85,18 @@
   position: relative;
 }
 
-.properties:last-of-type::before {
+.properties:last-of-type::after {
   content: "";
   display: block;
-  width: 100vw;
-  left: -200;
-  top: 0;
-  bottom: 0;
   background: #F7F7F7;
+  bottom: 0;
+  left: 50%;
+  height: 100%;
+  width: 100vw;
   z-index: -1;
   position: absolute;
+  transform: translateX(-50%);
+  overflow-x: hidden;
 }
 
 .h3 {
