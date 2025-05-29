@@ -1,37 +1,42 @@
 import { Property as PropertyType } from '@/types'
-import styles from './page.module.css'
+// import styles from './page.module.css'
 
 interface ApiResponse {
     data: PropertyType
 }
 
-export default async function PropertyPage({ params }: { params: { id: string } }) {
-    const fetchProperty = async () => {
-        try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/properties/${params.id}`)
-            const { data }: ApiResponse = await response.json()
-            console.log(data)
-            return data
-        } catch (err) {
-            console.error(err)
-            return null
-        }
+interface Props {
+    params: { id: string }
+}
+
+export default async function PropertyPage({ params }: Props) {
+    let property: PropertyType | null = null
+
+    try {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_HOST}/properties/${params.id}`,
+            {
+                cache: 'force-cache',
+                next: { revalidate: 60 * 60 } // 1 hour
+            }
+        )
+
+        if (!res.ok) throw new Error('Failed to fetch property')
+
+        const json: ApiResponse = await res.json()
+        property = json.data
+    } catch (err) {
+        console.error('Error fetching property:', err)
     }
 
-    const property = await fetchProperty()
-
-    const { id } = property || {}
-    
     return (
-        <>
-            <div className="section ">
-                <h1>Property Page {id}</h1>
-                {property ? (
-                    <pre>{JSON.stringify(property, null, 2)}</pre>
-                ) : (
-                    <p>Property not found</p>
-                )}
-            </div>
-        </>
+        <div className="section">
+            <h1>Property Page {property?.id ?? 'Not found'}</h1>
+            {property ? (
+                <pre>{JSON.stringify(property, null, 2)}</pre>
+            ) : (
+                <p>Property not found</p>
+            )}
+        </div>
     )
 }
