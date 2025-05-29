@@ -10,6 +10,15 @@ enum PropertyType {
     Apartment = 'apartment',
 }
 
+interface Location {
+    address: string;
+    addressNumber: string;
+    street: string;
+    neighborhood: string;
+    city: string;
+    state: string;
+    zip: string;
+}
 
 export interface Property {
     id: string; // UUID
@@ -21,7 +30,7 @@ export interface Property {
     bathrooms?: number;
     parking?: number;
     transaction: TransactionType;
-    location: Record<string, any>; // JSONB
+    location: Location; // JSONB
     type: PropertyType;
     images?: string[];
     active?: boolean;
