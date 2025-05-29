@@ -1,4 +1,5 @@
 import styles from './Property.module.css';
+import Link from 'next/link';
 import { truncateText } from '@/utils/text';
 // Types
 import { Property as PropertyType } from '@/types';
@@ -15,7 +16,7 @@ export default function Property(props: { data: PropertyType }) {
 
     return (
         <div className={styles.property}>
-            <a href={`/property/${data.id}`}>
+            <Link href={`/property/${data.id}`}>
                 <img src={thumbnail} alt={data.title} className={styles.image} />
 
                 <div className={styles.details}>
@@ -25,7 +26,7 @@ export default function Property(props: { data: PropertyType }) {
                         <span className={styles.transaction}> {transaction} </span> | {data.bedrooms} Cuartos | {data.bathrooms} {data.bathrooms === 1 ? 'Baño' : 'Baños'}
                     </p>
                 </div>
-            </a>
+            </Link>
         </div>
     )
 }

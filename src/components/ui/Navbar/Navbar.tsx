@@ -1,5 +1,6 @@
 "use client";
 import styles from "./Navbar.module.css";
+import Link from "next/link";
 
 export default function Navbar() {
     return (
@@ -7,11 +8,11 @@ export default function Navbar() {
             <nav className={styles.navbar}>
                 <div className={`container ${styles.navbar_container}`}>
                     <div className={styles.logo}>
-                        <a href="/"><img src="/hauzzo_logo.png" alt="Hauzzo" /></a>
+                        <Link href="/"><img src="/hauzzo_logo.png" alt="Hauzzo" /></Link>
                     </div>
                     <ul className={styles.nav_links}>
-                        <li><a href="/brokers">Publica tu propiedad en Hauzzo</a></li>
-                        <li><a className="btn btn_slim" href="/login">Iniciar sesion</a></li>
+                        <li><Link href="/brokers">Publica tu propiedad en Hauzzo</Link></li>
+                        <li><Link className="btn btn_slim" href="/login">Iniciar sesion</Link></li>
                     </ul>
                 </div>
             </nav>
