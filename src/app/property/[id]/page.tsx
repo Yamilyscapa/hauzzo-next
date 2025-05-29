@@ -5,21 +5,22 @@ interface ApiResponse {
     data: PropertyType
 }
 
-interface Props {
-    params: { id: string }
-}
-
-export default async function PropertyPage({ params }: Props) {
+export default async function PropertyPage({
+    params,
+}: {
+    params: Promise<{ id: string }>
+}) {
+    const { id } = await params
     let property: PropertyType | null = null
 
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_HOST}/properties/${params.id}`,
+            `${process.env.NEXT_PUBLIC_API_HOST}/properties/${id}`,
             {
                 cache: 'force-cache',
                 next: {
                     revalidate: 600,
-                    tags: ['property', `property-${params.id}`]
+                    tags: ['property', `property-${id}`]
                 }, // Revalidate every 10 minutes
             }
         )
