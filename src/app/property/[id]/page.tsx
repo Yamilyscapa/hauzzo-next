@@ -1,5 +1,9 @@
 import { Property as PropertyType } from '@/types'
-// import styles from './page.module.css'
+import Navbar from '@/components/ui/Navbar/Navbar'
+import { getPropertyById } from '@/logic/properties/properties.controller'
+import styles from './page.module.scss'
+import { formatPrice } from '@/utils/text'
+import { distributeImages, renderImageLayout } from './images.handler'
 
 interface ApiResponse {
     data: PropertyType
@@ -11,36 +15,62 @@ export default async function PropertyPage({
     params: Promise<{ id: string }>
 }) {
     const { id } = await params
-    let property: PropertyType | null = null
+    let property: PropertyType | null = await getPropertyById(id, {
+        cache: 'force-cache',
+        next: {
+            revalidate: 60 * 60, // Revalidate every hour
+            tags: ['property', `property-${id}`], // Tags for cache invalidation
+        },
+    })
 
-    try {
-        const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_HOST}/properties/${id}`,
-            {
-                cache: 'force-cache',
-                next: {
-                    revalidate: 600,
-                    tags: ['property', `property-${id}`]
-                }, // Revalidate every 10 minutes
-            }
+    if (!property) {
+        return (
+            <div className={styles.error}>
+                <h1>Property not found</h1>
+                <p>The property you are looking for does not exist.</p>
+            </div>
         )
-
-        if (!res.ok) throw new Error('Failed to fetch property')
-
-        const json: ApiResponse = await res.json()
-        property = json.data
-    } catch (err) {
-        console.error('Error fetching property:', err)
     }
 
+    // Ensure tags are an array and handle empty tags
+    if (property.tags?.length === 0 || !Array.isArray(property.tags)) {
+        property.tags = ['No tags available']
+    }
+
+    // Ensure images are an array and handle empty images
+    if (!Array.isArray(property.images) || property.images.length === 0) {
+        property.images = ['/images/default-property.jpg'] // Fallback image
+    }
+
+    const { mainImage, secondaryImages, additionalImages } = distributeImages(property.images)
+
     return (
-        <div className="section">
-            <h1>Property Page {property?.id ?? 'Not found'}</h1>
-            {property ? (
-                <pre>{JSON.stringify(property, null, 2)}</pre>
-            ) : (
-                <p>Property not found</p>
-            )}
-        </div>
+        <>
+            <Navbar />
+
+            <section className={`section ${styles.property}`}>
+
+                <div className={styles.property_images}>
+                    {renderImageLayout(mainImage, secondaryImages, additionalImages)}
+                </div>
+
+                <div className={styles.property_header}>
+                    <h1>{property.title}</h1>
+                    <h3>{formatPrice(property.price)}</h3>
+
+                    <div className={styles.property_details}>
+                        <div className={styles.property_tags}>
+                            {property.tags.map((tag, index) => (
+                                <span key={index} className={styles.tag}>
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+
+                        <p className={styles.property_description}>{property.description}</p>
+                    </div>
+                </div>
+            </section>
+        </>
     )
 }

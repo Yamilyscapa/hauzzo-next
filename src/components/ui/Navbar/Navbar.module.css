@@ -1,3 +1,7 @@
+.navbar {
+    padding: var(--space4) 0;
+}
+
 .navbar_container {
     height: calc(var(--space8) + 1rem);
     display: flex;

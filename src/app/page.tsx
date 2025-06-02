@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./page.module.css";
+import styles from "./page.module.scss";
 // Components
 import Navbar from "@/components/ui/Navbar/Navbar";
 import Searchbar from "@/components/ui/Searchbar/Searchbar";
@@ -18,16 +18,7 @@ export default function App() {
   useEffect(() => {
     (async () => {
       try {
-        if (localStorage.getItem('properties')) {
-          const cachedProperties = localStorage.getItem('properties');
-          if (cachedProperties) {
-            const cachedData: PropertyType[] = JSON.parse(cachedProperties);
-            setProperties(cachedData);
-            return;
-          }
-        }
-
-        const data: PropertyType[] = await getManyProperties(4, {
+        const data: PropertyType[] = await getManyProperties(10, {
           cache: 'force-cache', // Use cache to avoid unnecessary requests
           next: {
             revalidate: 60 * 60, // Revalidate every hour

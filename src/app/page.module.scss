@@ -10,38 +10,36 @@
 
 .hero {
   min-height: 100dvh;
-  margin-top: 14dvh;
+  margin-top: 12dvh;
 }
 
 .hero_text {
   text-align: center;
   margin-bottom: var(--space8);
-}
 
-.hero_text h1 {
-  width: 60dvw;
-  margin: auto;
-  margin-bottom: var(--space7);
-}
+  h1 {
+    width: 60dvw;
+    margin: auto;
+    margin-bottom: var(--space7);
+  }
 
-@media screen and (max-width: 800px) {
-  .hero_text h1 {
-    width: 100%;
+  @media screen and (max-width: 800px) {
+    h1 {
+      width: 100%;
+    }
   }
 }
 
 .searchbar {
   margin-bottom: 16dvh;
-}
 
-@media screen and (max-width: 820px) {
-  .searchbar {
+  @media screen and (max-width: 820px) {
     margin-bottom: 10dvh;
   }
 }
 
-@media screen and (max-width: 768px) {
-  .hero_container {
+.hero_container {
+  @media screen and (max-width: 768px) {
     gap: var(--space6);
   }
 }
@@ -54,46 +52,43 @@
   row-gap: var(--space8);
   flex-wrap: wrap;
   width: 100%;
-}
 
-@media screen and (max-width: 1184px) {
-  .properties_container {
+  @media screen and (max-width: 1184px) {
     justify-content: center;
     column-gap: var(--space10);
   }
-}
 
-@media screen and (max-width: 605px) {
-  .section {
-    text-align: center;
-  }
-
-  .properties_container {
+  @media screen and (max-width: 605px) {
     justify-content: center;
     gap: var(--space6);
   }
 
+  > * {
+    min-width: 300px;
+    max-width: 325px;
+  }
 }
 
-.properties_container>* {
-  min-width: 300px;
-  max-width: 325px;
+.section {
+  @media screen and (max-width: 605px) {
+    text-align: center;
+  }
 }
 
 .properties {
   padding: var(--space11) 0;
   position: relative;
-}
 
-.properties:last-of-type::after {
-  content: "";
-  position: absolute;
-  background: #F7F7F7;
-  inset: 0;
-  margin-inline: calc(-50vw + 50%);
-  width: 100vw;
-  z-index: -1;
-  box-sizing: border-box;
+  &:last-of-type::after {
+    content: "";
+    position: absolute;
+    background: #F7F7F7;
+    inset: 0;
+    margin-inline: calc(-50vw + 50%);
+    width: 100vw;
+    z-index: -1;
+    box-sizing: border-box;
+  }
 }
 
 .h3 {

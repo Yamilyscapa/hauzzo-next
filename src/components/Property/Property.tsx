@@ -1,6 +1,7 @@
 import styles from './Property.module.css';
 import Link from 'next/link';
 import { truncateText } from '@/utils/text';
+import { formatPrice } from '@/utils/text';
 // Types
 import { Property as PropertyType } from '@/types';
 
@@ -20,7 +21,7 @@ export default function Property(props: { data: PropertyType }) {
                 <img src={thumbnail} alt={data.title} className={styles.image} />
 
                 <div className={styles.details}>
-                    <h3 className={styles.price}>${data.price}</h3>
+                    <h3 className={styles.price}>{formatPrice(data.price)}</h3>
                     <p className={styles.description}>{data.description}</p>
                     <p className={styles.details_info}>
                         <span className={styles.transaction}> {transaction} </span> | {data.bedrooms} Cuartos | {data.bathrooms} {data.bathrooms === 1 ? 'Baño' : 'Baños'}

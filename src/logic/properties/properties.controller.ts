@@ -11,6 +11,7 @@ interface CacheConfig {
         tags?: string[]; // Tags for cache invalidation
     };
 }
+
 /**
  * 
  * @param limit - The maximum number of properties to fetch, default is 10
@@ -63,31 +64,55 @@ export async function getManyProperties(limit: number = 10, cache?: CacheConfig)
         throw new Error(`Error fetching properties: ${error}`);
     }
 }
+/**
+ * 
+ * @param id - The ID of the property to fetch
+ * @param cache 
+ * @param cache.cache - Cache mode, can be 'default', 'no-store', 'reload', 'force-cache', or 'only-if-cached'
+ * @param cache.next - Next.js specific cache configuration
+ * @param cache.next.revalidate - Time in seconds to revalidate the cache
+ * @param cache.next.tags - Tags for cache invalidation
+ * @returns {Promise<PropertyType | null>} - Returns the property object if found, otherwise null
+ * @throws {Error} - Throws an error if the API URL is not defined or if the property ID is not provided
+ */
 
-export async function getProperty(id: string) {
+export async function getPropertyById(id: string, cache?: CacheConfig) {
+    interface ApiResponse {
+        data: PropertyType
+    }
+
     const API_URL = process.env.NEXT_PUBLIC_API_HOST ?? ''
+    let property: PropertyType | null = null
 
     if (API_URL === '') {
         throw new Error('API URL is not defined');
     }
-
+    
     if (!id) {
         throw new Error('Property ID is required');
     }
+    
+ try {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_HOST}/properties/${id}`,
+            {
+              ...cache
+            }
+        )
 
-    const response = await fetch(`${API_URL}/proeprties/${id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
+        if (!res.ok) throw new Error('Failed to fetch property')
 
-    if (!response.ok) {
-        throw new Error(`Error fetching property with id ${id}: ${response.statusText}`);
+        const response: ApiResponse = await res.json()
+        property = response.data
+
+        if (!property) {
+            throw new Error(`Property with ID ${id} not found`);
+        }
+
+        return property;
+    } catch (err) {
+        console.error('Error fetching property:', err)
+        return null;
     }
-
-    console.log(response.json());
-
-    return response.json();
 
 }
