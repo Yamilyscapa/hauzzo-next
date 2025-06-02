@@ -11,7 +11,8 @@
 }
 
 .main_image {
-    height: 60vh;
+    max-height: 60vh;
+    height: 100%;
     border-radius: var(--space2);
     overflow: hidden;
 
@@ -23,6 +24,8 @@
 }
 
 .secondary_images {
+    max-height: 60vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     row-gap: var(--space3);
