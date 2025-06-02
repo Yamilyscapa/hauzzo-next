@@ -5,17 +5,13 @@ import styles from './page.module.scss'
 import { formatPrice } from '@/utils/text'
 import { distributeImages, renderImageLayout } from './images.handler'
 
-interface ApiResponse {
-    data: PropertyType
-}
-
 export default async function PropertyPage({
     params,
 }: {
     params: Promise<{ id: string }>
 }) {
     const { id } = await params
-    let property: PropertyType | null = await getPropertyById(id, {
+    const property: PropertyType | null = await getPropertyById(id, {
         cache: 'force-cache',
         next: {
             revalidate: 60 * 60, // Revalidate every hour
