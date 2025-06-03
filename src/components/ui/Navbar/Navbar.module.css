@@ -10,16 +10,12 @@
 }
 
 .nav_links {
+    color: var(--light);
     list-style: none;
     text-decoration: none;
     display: flex;
     align-items: center;
     gap: var(--space7);
-}
-
-.nav_links li:first-child > a {
-    color: var(--dark);
-    font-weight: 500;
 }
 
 .logo {

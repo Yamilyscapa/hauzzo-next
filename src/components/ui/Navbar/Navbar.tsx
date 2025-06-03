@@ -11,7 +11,7 @@ export default function Navbar() {
                         <Link href="/"><img src="/hauzzo_logo.png" alt="Hauzzo" /></Link>
                     </div>
                     <ul className={styles.nav_links}>
-                        <li><Link href="/brokers">Publica tu propiedad en Hauzzo</Link></li>
+                        {/* <li><Link href="/brokers">Publica tu propiedad en Hauzzo</Link></li> */}
                         <li><Link className="btn btn_slim" href="/login">Iniciar sesion</Link></li>
                     </ul>
                 </div>
