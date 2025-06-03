@@ -6,6 +6,18 @@ import { formatPrice } from '@/utils/text';
 import { Property as PropertyType } from '@/types';
 
 
+/**
+ * 
+ * @param props 
+ * @param props.data.id - The id of the property
+ * @param props.data.title - The title of the property
+ * @param props.data.description - The description of the property
+ * @param props.data.price - The price of the property
+ * @param props.data.bedrooms - The number of bedrooms
+ * @param props.data.bathrooms - The number of bathrooms
+ * @param props.data.images - The images of the property
+ * @returns 
+ */
 export default function Property(props: { data: PropertyType }) {
     const { data } = props;
     const thumbnail = data.images?.[0] ?? undefined;

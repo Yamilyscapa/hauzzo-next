@@ -1,11 +1,11 @@
 // ENUM para el tipo de transacción
-enum TransactionType {
+export enum TransactionType {
     Sale = 'sale',
     Rent = 'rent',
 }
 
 // ENUM para el tipo de propiedad
-enum PropertyType {
+export enum PropertyType {
     House = 'house',
     Apartment = 'apartment',
 }
