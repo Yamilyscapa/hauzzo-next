@@ -32,7 +32,8 @@
 
     img {
         width: 100%;
-        height: 250px;
+        min-height: 250px;
+        flex: 1;
         object-fit: cover;
         border-radius: var(--space2);
         overflow: hidden;
@@ -82,11 +83,15 @@
     }
 
     .secondary_images {
-        flex-direction: row;
-        column-gap: var(--space4);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space3);
+        height: auto;
 
         img {
             height: 20vh;
+            min-height: unset;
+            flex: none;
         }
     }
 

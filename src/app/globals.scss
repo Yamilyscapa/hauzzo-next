@@ -111,8 +111,12 @@ a {
 
 .section,
 .container {
-  width: 80%;
+  width: 70%;
   margin: 0 auto;
+}
+
+.section {
+  padding-bottom: 5rem;
 }
 
 @media screen and (max-width: 750px) {

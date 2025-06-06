@@ -2,14 +2,20 @@
 import styles from "./page.module.scss";
 import Navbar from "@/components/ui/Navbar/Navbar";
 import Property from "@/components/Property/Property";
-import SearchbarFilters from "@/components/ui/Searchbar/SearchbarFilters";
+import SearchbarFilters, { ExtraFilters } from "@/components/ui/Searchbar/SearchbarFilters";
 import { getManyProperties } from "@/logic/properties/properties.controller";
 import { useEffect, useState } from "react";
 import { Property as PropertyType } from "@/types";
+import Modal from "@/components/ui/Modal/Modal";
 
 export default function SearchPage() {
     const [properties, setProperties] = useState<PropertyType[]>([]); // TODO: Cambiar a PropertyInterface
-
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    
+    function handleModalVisibility() {
+        setIsModalVisible(!isModalVisible);
+    }
+    
     // Fetch properties from the API
     useEffect(() => {
         (async () => {
@@ -33,8 +39,12 @@ export default function SearchPage() {
         <>
             <Navbar />
 
+            <Modal isVisible={isModalVisible} onClose={() => handleModalVisibility()}>
+                <ExtraFilters />
+            </Modal>
+
             <section className="section">
-                <SearchbarFilters />
+                <SearchbarFilters modal={() => handleModalVisibility()} />
 
                 <div >
                     <h2>Tus resultados:</h2>
