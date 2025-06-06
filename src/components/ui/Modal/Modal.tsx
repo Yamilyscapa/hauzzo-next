@@ -14,6 +14,18 @@ export default function Modal({ children, title, isVisible, onClose }: { childre
 
     useEffect(() => {
         setVisible(isVisible);
+        
+        // Block body scroll when modal is visible
+        if (isVisible) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        
+        // Cleanup on unmount
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
     }, [isVisible]);
 
     return (
