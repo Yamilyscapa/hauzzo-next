@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import style from './Modal.module.scss';
 
-export default function Modal({ children, isVisible, onClose }: { children?: React.ReactNode, isVisible: boolean, onClose?: () => void }) {
+export default function Modal({ children, title, isVisible, onClose }: { children?: React.ReactNode, title?: string, isVisible: boolean, onClose?: () => void }) {
     // Use a local state to manage the visibility of the modal
     const [visible, setVisible] = useState(isVisible);
 
@@ -22,6 +22,7 @@ export default function Modal({ children, isVisible, onClose }: { children?: Rea
                 <div className={`${style.modal_content}`}>
 
                     <div className={`${style.modal_header}`}>
+                        <h3 className={`${style.modal_title}`}>{title}</h3>
                         <span className={`${style.close}`} onClick={() => handleClose()}>&times;</span>
                     </div>
 

@@ -3,25 +3,32 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 2dvh 5dvw;
     min-width: 350px;
-    padding-top: var(--space10);
+    max-height: 85dvh;
+    padding: var(--space4) 5dvw var(--space7);
     background: #fff;
     display: flex;
     align-items: center;
     border-radius: var(--space2);
     z-index: 1000;
+    overflow-y: auto;
+    flex-direction: column;
 
     &_header {
-        right: 0;
-        left: 0;
-        top: 0;
-        padding: 2rem;
-        position: absolute;
-        display: flex;
-        justify-content: end;
+        width: 100%;
+        display: grid;
+        padding: 1rem 0 2rem;
+        place-items: center;
+        grid-template-columns: repeat(2, 1fr);
+
+        h3 {
+            justify-self: start;
+            font-size: 1rem;
+        }
+
 
         span {
+            justify-self: end;
             font-size: 1.5rem;
             cursor: pointer;
             padding: .5rem;
@@ -41,6 +48,7 @@
         height: 100%;
         background: rgba(0, 0, 0, 0.5);
         z-index: 999;
+        pointer-events: none;
         cursor: pointer;
     }
 }
