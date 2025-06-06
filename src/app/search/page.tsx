@@ -40,6 +40,10 @@ export default function SearchPage() {
             <Navbar />
 
             <Modal isVisible={isModalVisible} onClose={() => handleModalVisibility()}>
+                <h3>Filtros Adicionales</h3>
+                <br />
+                <br />
+                <br />
                 <ExtraFilters />
             </Modal>
 

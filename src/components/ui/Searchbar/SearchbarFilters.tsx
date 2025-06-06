@@ -74,6 +74,53 @@ export function ExtraFilters() {
                     <option value="sale">Venta</option>
                 </select>
             </div>
+
+            <div className={styles.search_controller_filters_item}>
+                <label htmlFor="rooms">Cuartos:</label>
+                <select name="rooms" id="rooms">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5+</option>
+                </select>
+            </div>
+
+            <div className={styles.search_controller_filters_item}>
+                <label htmlFor="transaction_type">Amueblado:</label>
+                <select name="furnished" id="furnished">
+                    <option value="yes">Sí</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <div className={styles.search_controller_filters_item}>
+                <label htmlFor="parking">Estacionamiento:</label>
+                <select name="parking" id="parking">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5+</option>
+                </select>
+            </div>
+
+            <div className={styles.search_controller_filters_item}>
+                <label htmlFor="pets">Permite mascotas:</label>
+                <select name="pets" id="pets">
+                    <option value="yes">Sí</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <div className={styles.search_controller_filters_item}>
+                <label htmlFor="m2">m²:</label>
+                <input type="number" name="m2" id="m2" min={0} placeholder="Metros cuadrados" />
+            </div>
+
+              <div className={styles.search_controller_filters_item}>
+                <button className={`btn ${styles.btn}`}>Aplicar</button>
+            </div>
         </form>
     );
 }
