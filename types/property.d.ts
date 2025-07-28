@@ -12,6 +12,7 @@ export interface PropertyLocationType {
 }
 
 export interface PropertyContent {
+  id: string;
   title: string;
   description: string;
   price: number;

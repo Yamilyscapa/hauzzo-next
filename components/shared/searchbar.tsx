@@ -26,12 +26,14 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 import { formatPrice } from "@/utils/text-formatter";
+import Link from "next/link";
+import { PropertyType } from "@/types/property";
 
 export default function Searchbar({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "searchbar flex items-center gap-2 w-full max-w-2xl",
+        "searchbar flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full max-w-2xl",
         className,
       )}
     >
@@ -54,13 +56,15 @@ export default function Searchbar({ className }: { className?: string }) {
         </span>
 
         <Input
-          className="h-12 pl-11"
+          className="h-12 pl-11 w-full min-w-[200px]"
           type="text"
           placeholder="Tu nueva direccion esta aqui..."
         />
       </div>
-      <Button size="lg" className="h-12">
-        Buscar
+      <Button size="lg" className="h-12 w-full sm:w-auto">
+        <Link href="/search">
+          Buscar
+        </Link>
       </Button>
     </div>
   );
@@ -95,39 +99,41 @@ export function SearchbarFilters({ className }: { className?: string }) {
   return (
     <Card
       className={cn(
-        "p-4 searchbar-filters flex flex-col items-center gap-6 w-full max-w-2xl",
+        "p-4 searchbar-filters flex flex-col items-center gap-4 sm:gap-6 w-full h-fit",
         className,
       )}
     >
       <Searchbar />
 
-      <div className="flex items-center justify-center gap-2">
-        <div className="grid w-full max-w-sm items-center gap-3">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-2 w-full">
+        <div className="grid w-full sm: items-center gap-2 sm:gap-3">
           <Label htmlFor="">Precio</Label>
           <Select>
-            <SelectTrigger>
+            <SelectTrigger className="w-full min-w-[140px]">
               <SelectValue
                 placeholder={`${formatPrice(filters.price.min)} - ${formatPrice(filters.price.max)}`}
               />
             </SelectTrigger>
 
-            <SelectContent className="p-6">
-              <div className="flex items-center gap-2">
-                <div className="flex flex-col gap-2">
+            <SelectContent className="p-4 sm:p-6">
+              <div className="flex flex-col sm:flex-row items-center gap-2">
+                <div className="flex flex-col gap-2 w-full sm:w-auto">
                   <span className="text-gray-500">Desde</span>
                   <Input
                     type="number"
                     placeholder={`${formatPrice(filters.price.min)}`}
+                    className="min-w-[120px]"
                   />
                 </div>
 
-                <span className="text-gray-500 mt-8">-</span>
+                <span className="text-gray-500 sm:mt-8">-</span>
 
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 w-full sm:w-auto">
                   <span className="text-gray-500">Hasta</span>
                   <Input
                     type="number"
                     placeholder={`${formatPrice(filters.price.max)}`}
+                    className="min-w-[120px]"
                   />
                 </div>
               </div>
@@ -135,10 +141,10 @@ export function SearchbarFilters({ className }: { className?: string }) {
           </Select>
         </div>
 
-        <div className="grid w-full max-w-sm items-center gap-3">
+        <div className="grid w-full sm: items-center gap-2 sm:gap-3">
           <Label htmlFor="email">Tipo de propiedad</Label>
           <Select>
-            <SelectTrigger className="w-40">
+            <SelectTrigger className="w-full min-w-[140px]">
               <SelectValue placeholder="Casa" />
             </SelectTrigger>
 
@@ -149,10 +155,10 @@ export function SearchbarFilters({ className }: { className?: string }) {
           </Select>
         </div>
 
-        <div className="grid w-full max-w-sm items-center gap-3">
+        <div className="grid w-full sm: items-center gap-2 sm:gap-3">
           <Label htmlFor="email">Cuartos</Label>
           <Select>
-            <SelectTrigger className="w-40">
+            <SelectTrigger className="w-full min-w-[140px]">
               <SelectValue placeholder="Número de cuartos" />
             </SelectTrigger>
 
@@ -166,15 +172,15 @@ export function SearchbarFilters({ className }: { className?: string }) {
           </Select>
         </div>
 
-        <div className="grid w-full max-w-sm items-center gap-3">
+        <div className="grid w-full sm: items-center gap-2 sm:gap-3">
           <Label className="opacity-0">Más filtros</Label>
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button variant="outline" size="default" className="text-white">
+              <Button variant="outline" size="default" className="text-white w-full sm:w-auto">
                 Ver más filtros
               </Button>
             </AlertDialogTrigger>
-            <AlertDialogContent className="w-[600px] max-h-[80vh] overflow-y-auto">
+            <AlertDialogContent className="w-[95vw] sm:w-[600px] max-h-[80vh] overflow-y-auto mx-4 sm:mx-0">
               <AlertDialogHeader>
                 <AlertDialogTitle>Filtros adicionales</AlertDialogTitle>
 
@@ -235,17 +241,17 @@ export function SearchbarFilters({ className }: { className?: string }) {
                 {/* Location Filters */}
                 <div className="grid gap-2">
                   <Label htmlFor="city">Ciudad</Label>
-                  <Input placeholder="Ciudad" />
+                  <Input placeholder="Ciudad" className="min-w-[200px]" />
                 </div>
 
                 <div className="grid gap-2">
                   <Label htmlFor="neighborhood">Colonia</Label>
-                  <Input placeholder="Colonia" />
+                  <Input placeholder="Colonia" className="min-w-[200px]" />
                 </div>
 
                 <div className="grid gap-2">
                   <Label htmlFor="zip">Código Postal</Label>
-                  <Input placeholder="Código Postal" />
+                  <Input placeholder="Código Postal" className="min-w-[200px]" />
                 </div>
 
                 {/* Property Features */}
@@ -254,6 +260,7 @@ export function SearchbarFilters({ className }: { className?: string }) {
                   <Input
                     placeholder="Agregar característica (presiona Enter)"
                     onKeyDown={(e) => handleEnterAmenity(e)}
+                    className="min-w-[200px]"
                   />
 
                   <div
@@ -293,9 +300,9 @@ export function SearchbarFilters({ className }: { className?: string }) {
                 </div>
               </div>
 
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                <AlertDialogAction>Aplicar filtros</AlertDialogAction>
+              <AlertDialogFooter className="flex flex-col sm:flex-row gap-2">
+                <AlertDialogCancel className="w-full sm:w-auto">Cancelar</AlertDialogCancel>
+                <AlertDialogAction className="w-full sm:w-auto">Aplicar filtros</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
