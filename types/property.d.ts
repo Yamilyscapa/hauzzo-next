@@ -24,4 +24,5 @@ export interface PropertyContent {
   type: PropertyType;
   transaction: TransactionType;
   images: string[];
+  active?: boolean;
 }

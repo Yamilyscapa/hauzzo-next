@@ -1,4 +1,4 @@
-import Property from "@/components/shared/property";
+import Property from "@/components/shared/property-card";
 import { PropertyContent } from "@/types/property";
 import Searchbar from "@/components/shared/searchbar";
 

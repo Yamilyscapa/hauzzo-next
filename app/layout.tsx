@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Nav from "@/components/shared/nav";
+import NavWrapper from "@/components/shared/nav-wrapper";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,10 +21,9 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={`${inter.variable} antialiased overflow-y-scroll`}>
-        <div className="container mx-auto">
-          <Nav />
-          {children}
-        </div>
+        {/* Site nav renders itself inside a container; admin pages render nothing */}
+        <NavWrapper />
+        {children}
       </body>
     </html>
   );

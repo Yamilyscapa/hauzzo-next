@@ -1,3 +1,4 @@
+"use client";
 import { Fragment } from "react";
 import {
   Card,
@@ -12,10 +13,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { PropertyContent } from "@/types/property";
 import { formatDescription, formatPrice } from "@/utils/text-formatter";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { urlWithQuery } from "@/lib/url-parsing";
 
 export default function Property(content: PropertyContent) {
-  const imageUrl: string = "";
+  const params = useSearchParams();
+  const currentQuery = params.get("query");
+  const imageUrl: string = Array.isArray(content.images) && content.images.length > 0 ? content.images[0] : "";
   const formattedContent = {
     transaction: content.transaction === "sale" ? "VENTA" : "RENTA",
     price: formatPrice(content.price),
@@ -24,8 +28,8 @@ export default function Property(content: PropertyContent) {
   let isLoading: boolean = false;
 
   return (
-    <Card className="w-full max-w-80 h-[26rem] gap-0 overflow-hidden flex flex-col">
-      <Link href={urlWithQuery(content)}>
+    <Card className="w-full max-w-80 h-[26rem] gap-0 overflow-hidden flex flex-col pt-0">
+      <Link href={currentQuery ? `${urlWithQuery(content)}&query=${encodeURIComponent(currentQuery)}` : urlWithQuery(content)}>
         {isLoading || !imageUrl ? (
           <Skeleton className="h-60 w-full" />
         ) : (

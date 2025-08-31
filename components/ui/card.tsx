@@ -2,16 +2,41 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+function Card({ className, children, ...props }: React.ComponentProps<"div">) {
+  // Check if any child is a CardImage component recursively
+  const hasCardImage = React.Children.toArray(children).some((child) => {
+    if (!React.isValidElement(child)) return false;
+
+    // Check if this child is a CardImage
+    const childProps = child.props as any;
+    if (childProps && childProps["data-slot"] === "card-image") {
+      return true;
+    }
+
+    // Recursively check children of this child
+    if (childProps && childProps.children) {
+      return React.Children.toArray(childProps.children).some((grandChild) => {
+        if (!React.isValidElement(grandChild)) return false;
+        const grandChildProps = grandChild.props as any;
+        return grandChildProps && grandChildProps["data-slot"] === "card-image";
+      });
+    }
+
+    return false;
+  });
+
   return (
     <div
       data-slot="card"
       className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border pb-6 shadow-xs",
+        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border shadow-xs",
+        hasCardImage ? "pt-0" : "py-6",
         className,
       )}
       {...props}
-    />
+    >
+      {children}
+    </div>
   );
 }
 
@@ -20,6 +45,7 @@ function CardImage({ className, ...props }: React.ComponentProps<"img">) {
 
   return (
     <img
+      data-slot="card-image"
       src={src}
       alt="Card Image"
       className={cn("object-cover rounded-sm", className)}
