@@ -48,7 +48,7 @@ export default function Nav() {
 
             <div className="flex flex-col gap-4 mt-6 px-4">
               {menuItems.map((item) => (
-                <Link key={item.href} href={item.href}>
+                <Link key={item.label} href={item.href}>
                   <span>{item.label}</span>
                 </Link>
               ))}
