@@ -35,12 +35,14 @@ export default function Home() {
           <Searchbar />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 py-10 w-full">
-          {properties.map((property) => (
-            <div key={property.id} className="w-full">
-              <Property {...property} />
-            </div>
-          ))}
+        <div className="w-full flex justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 py-10">
+            {properties.map((property) => (
+              <div key={property.id} className="w-full flex justify-center">
+                <Property {...property} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

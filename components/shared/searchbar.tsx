@@ -501,7 +501,7 @@ export function SearchbarFilters({ className }: { className?: string }) {
                 Ver más filtros
               </Button>
             </AlertDialogTrigger>
-            <AlertDialogContent className="w-[95vw] sm:w-[600px] max-h-[80vh] overflow-y-auto mx-4 sm:mx-0">
+            <AlertDialogContent className="sm:w-[600px] max-h-[80vh] overflow-y-auto">
               <AlertDialogHeader>
                 <AlertDialogTitle>Filtros adicionales</AlertDialogTitle>
 
