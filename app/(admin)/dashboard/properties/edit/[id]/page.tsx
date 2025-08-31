@@ -22,7 +22,11 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { PropertyType, TransactionType } from "@/types/property";
 import { formatPrice } from "@/utils/text-formatter";
-import { getProperty, updateProperty, updatePropertyImages } from "@/lib/properties";
+import {
+  getProperty,
+  updateProperty,
+  updatePropertyImages,
+} from "@/lib/properties";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function EditProperty() {
@@ -248,7 +252,7 @@ export default function EditProperty() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="house">Casa</SelectItem>
-                      <SelectItem value="apartment">Apartamento</SelectItem>
+                      <SelectItem value="apartment">Departamento</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -488,11 +492,17 @@ export default function EditProperty() {
                 {images && images.length > 0 ? (
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                     {images.map((url, idx) => (
-                      <div key={url+idx} className="relative group">
-                        <img src={url} alt={`Imagen ${idx+1}`} className="w-full h-32 object-cover rounded-md border" />
+                      <div key={url + idx} className="relative group">
+                        <img
+                          src={url}
+                          alt={`Imagen ${idx + 1}`}
+                          className="w-full h-32 object-cover rounded-md border"
+                        />
                         <button
                           type="button"
-                          onClick={() => setImages((prev) => prev.filter((u) => u !== url))}
+                          onClick={() =>
+                            setImages((prev) => prev.filter((u) => u !== url))
+                          }
                           className="absolute top-2 right-2 bg-white/80 text-red-600 border border-red-200 rounded-full px-2 py-0.5 text-xs opacity-0 group-hover:opacity-100 transition"
                           aria-label="Eliminar imagen"
                         >
@@ -502,7 +512,9 @@ export default function EditProperty() {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-sm text-gray-500">No hay imágenes actuales.</div>
+                  <div className="text-sm text-gray-500">
+                    No hay imágenes actuales.
+                  </div>
                 )}
 
                 {/* Add new images */}
@@ -515,21 +527,33 @@ export default function EditProperty() {
                       multiple
                       className="hidden"
                       onChange={(e) => {
-                        const list = e.target.files ? Array.from(e.target.files) : [];
+                        const list = e.target.files
+                          ? Array.from(e.target.files)
+                          : [];
                         setNewFiles((prev) => [...prev, ...list]);
                       }}
                     />
-                    <Button type="button" variant="outline" onClick={() => document.getElementById('new-images')?.click()}>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() =>
+                        document.getElementById("new-images")?.click()
+                      }
+                    >
                       Agregar imágenes
                     </Button>
-                    <p className="text-xs text-gray-500">PNG, JPG, GIF hasta 10MB</p>
+                    <p className="text-xs text-gray-500">
+                      PNG, JPG, GIF hasta 10MB
+                    </p>
                   </div>
                 </div>
 
                 {/* New files preview */}
                 {newFiles.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-medium mb-2">Nuevas imágenes</h4>
+                    <h4 className="text-sm font-medium mb-2">
+                      Nuevas imágenes
+                    </h4>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                       {newFiles.map((file, index) => (
                         <div key={index} className="relative group">
@@ -540,12 +564,21 @@ export default function EditProperty() {
                           />
                           <button
                             type="button"
-                            onClick={() => setNewFiles((prev) => prev.filter((_, i) => i !== index))}
+                            onClick={() =>
+                              setNewFiles((prev) =>
+                                prev.filter((_, i) => i !== index),
+                              )
+                            }
                             className="absolute top-2 right-2 bg-white/80 text-red-600 border border-red-200 rounded-full px-2 py-0.5 text-xs opacity-0 group-hover:opacity-100 transition"
                           >
                             Quitar
                           </button>
-                          <div className="mt-1 text-xs text-gray-600 truncate" title={file.name}>{file.name}</div>
+                          <div
+                            className="mt-1 text-xs text-gray-600 truncate"
+                            title={file.name}
+                          >
+                            {file.name}
+                          </div>
                         </div>
                       ))}
                     </div>

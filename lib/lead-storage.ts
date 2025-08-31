@@ -40,4 +40,3 @@ export function markLeadForProperty(propertyId: string) {
     ls.setItem(STORAGE_KEY, JSON.stringify(map));
   } catch {}
 }
-

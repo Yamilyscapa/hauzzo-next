@@ -1,7 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+  SheetFooter,
+} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,7 +25,14 @@ type LeadModalProps = {
   onSuccess?: () => void;
 };
 
-export function LeadModal({ open, onOpenChange, propertyId, propertyTitle, mode = "contact", onSuccess }: LeadModalProps) {
+export function LeadModal({
+  open,
+  onOpenChange,
+  propertyId,
+  propertyTitle,
+  mode = "contact",
+  onSuccess,
+}: LeadModalProps) {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
@@ -57,11 +71,15 @@ export function LeadModal({ open, onOpenChange, propertyId, propertyTitle, mode 
       }
 
       setLoading(true);
-      await createLead({ propertyId, email: email || undefined, phone: phone || undefined });
+      await createLead({
+        propertyId,
+        email: email || undefined,
+        phone: phone || undefined,
+      });
       setSuccess(
         mode === "visit"
           ? "¡Solicitud enviada! El asesor se pondrá en contacto para agendar tu visita."
-          : "¡Gracias! El asesor se pondrá en contacto contigo pronto."
+          : "¡Gracias! El asesor se pondrá en contacto contigo pronto.",
       );
       markLeadForProperty(propertyId);
       setAlreadySent(true);
@@ -74,10 +92,12 @@ export function LeadModal({ open, onOpenChange, propertyId, propertyTitle, mode 
   }
 
   return (
-    <Sheet  open={open} onOpenChange={onOpenChange}>
+    <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="center" className="w-full sm:max-w-md">
         <SheetHeader>
-          <SheetTitle>{mode === "visit" ? "Agendar visita" : "Contactar"}</SheetTitle>
+          <SheetTitle>
+            {mode === "visit" ? "Agendar visita" : "Contactar"}
+          </SheetTitle>
           <SheetDescription>
             {propertyTitle ? `Propiedad: ${propertyTitle}. ` : null}
             Completa tus datos y te contactaremos.
@@ -103,7 +123,8 @@ export function LeadModal({ open, onOpenChange, propertyId, propertyTitle, mode 
             <Alert>
               <AlertTitle>Ya enviado</AlertTitle>
               <AlertDescription>
-                Ya enviaste una solicitud para esta propiedad. Próximamente te contactaremos.
+                Ya enviaste una solicitud para esta propiedad. Próximamente te
+                contactaremos.
               </AlertDescription>
             </Alert>
           ) : null}
@@ -130,17 +151,29 @@ export function LeadModal({ open, onOpenChange, propertyId, propertyTitle, mode 
               onChange={(e) => setPhone(e.target.value)}
               disabled={alreadySent}
             />
-            <p className="text-xs text-muted-foreground">Proporciona al menos email o teléfono.</p>
+            <p className="text-xs text-muted-foreground">
+              Proporciona al menos email o teléfono.
+            </p>
           </div>
         </div>
 
         <SheetFooter>
           <div className="flex gap-2">
-            <Button variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
+            <Button
+              variant="outline"
+              onClick={() => onOpenChange(false)}
+              disabled={loading}
+            >
               Cancelar
             </Button>
             <Button onClick={onSubmit} disabled={loading || alreadySent}>
-              {alreadySent ? "Ya enviado" : loading ? "Enviando..." : mode === "visit" ? "Agendar" : "Contactar"}
+              {alreadySent
+                ? "Ya enviado"
+                : loading
+                  ? "Enviando..."
+                  : mode === "visit"
+                    ? "Agendar"
+                    : "Contactar"}
             </Button>
           </div>
         </SheetFooter>

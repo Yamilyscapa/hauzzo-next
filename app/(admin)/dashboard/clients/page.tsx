@@ -27,9 +27,10 @@ export default function ClientsPage() {
   const filtered = useMemo(() => {
     if (!q) return leads;
     const s = q.toLowerCase();
-    return leads.filter((l) =>
-      (l.lead_email || "").toLowerCase().includes(s) ||
-      (l.lead_phone || "").toLowerCase().includes(s)
+    return leads.filter(
+      (l) =>
+        (l.lead_email || "").toLowerCase().includes(s) ||
+        (l.lead_phone || "").toLowerCase().includes(s),
     );
   }, [leads, q]);
 
@@ -67,7 +68,9 @@ export default function ClientsPage() {
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Clientes</h1>
-          <p className="text-gray-600 mt-2">Gestiona tus prospectos y contactos.</p>
+          <p className="text-gray-600 mt-2">
+            Gestiona tus prospectos y contactos.
+          </p>
         </div>
 
         {error && (
@@ -88,7 +91,7 @@ export default function ClientsPage() {
                   placeholder="Buscar por email o teléfono..."
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                  onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                   className="pl-10"
                 />
               </div>
@@ -122,38 +125,54 @@ export default function ClientsPage() {
                 <CardContent className="p-4 space-y-2">
                   <div className="flex items-center gap-2 text-gray-900 font-medium">
                     <User className="h-4 w-4" />
-                    <span>{lead.lead_email || lead.lead_phone || 'Sin datos'}</span>
+                    <span>
+                      {lead.lead_email || lead.lead_phone || "Sin datos"}
+                    </span>
                   </div>
                   <div className="flex items-center gap-2 text-gray-600 text-sm">
                     <Mail className="h-4 w-4" />
-                    <span>{lead.lead_email || '—'}</span>
+                    <span>{lead.lead_email || "—"}</span>
                   </div>
                   <div className="flex items-center gap-2 text-gray-600 text-sm">
                     <Phone className="h-4 w-4" />
-                    <span>{lead.lead_phone || '—'}</span>
+                    <span>{lead.lead_phone || "—"}</span>
                   </div>
                   <div className="flex items-start gap-2 text-gray-600 text-sm">
                     <Home className="h-4 w-4 mt-0.5" />
                     <div className="flex-1">
                       <div className="mb-1">
-                        {(lead.properties_count || 0)} { (lead.properties_count || 0) === 1 ? 'propiedad vinculada' : 'propiedades vinculadas' }
+                        {lead.properties_count || 0}{" "}
+                        {(lead.properties_count || 0) === 1
+                          ? "propiedad vinculada"
+                          : "propiedades vinculadas"}
                       </div>
-                      {Array.isArray(lead.properties) && lead.properties.length > 0 ? (
+                      {Array.isArray(lead.properties) &&
+                      lead.properties.length > 0 ? (
                         <div className="flex flex-col gap-1">
                           {lead.properties.slice(0, 3).map((p) => (
-                            <Link key={p.id} href={`/properties/${p.id}`} className="text-hauzzo hover:underline inline-flex items-center gap-1">
-                              <span className="truncate max-w-[22rem]">{p.title || p.id}</span>
+                            <Link
+                              key={p.id}
+                              href={`/properties/${p.id}`}
+                              className="text-hauzzo hover:underline inline-flex items-center gap-1"
+                            >
+                              <span className="truncate max-w-[22rem]">
+                                {p.title || p.id}
+                              </span>
                               <ExternalLink className="h-3.5 w-3.5" />
                             </Link>
                           ))}
                           {lead.properties.length > 3 ? (
-                            <span className="text-xs text-gray-500">y {lead.properties.length - 3} más…</span>
+                            <span className="text-xs text-gray-500">
+                              y {lead.properties.length - 3} más…
+                            </span>
                           ) : null}
                         </div>
                       ) : null}
                     </div>
                   </div>
-                  <div className="text-xs text-gray-500">Creado: {formatDate(lead.created_at)}</div>
+                  <div className="text-xs text-gray-500">
+                    Creado: {formatDate(lead.created_at)}
+                  </div>
                 </CardContent>
               </Card>
             ))}

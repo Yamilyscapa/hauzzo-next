@@ -12,7 +12,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { PropertyContent, PropertyType, TransactionType } from "@/types/property";
+import {
+  PropertyContent,
+  PropertyType,
+  TransactionType,
+} from "@/types/property";
 import { formatPrice } from "@/utils/text-formatter";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -30,7 +34,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { cn } from "@/lib/utils";
-import { deleteProperty, listProperties, setPropertyActive } from "@/lib/properties";
+import {
+  deleteProperty,
+  listProperties,
+  setPropertyActive,
+} from "@/lib/properties";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function Properties() {
@@ -183,7 +191,9 @@ export default function Properties() {
       setError(null);
       await deleteProperty(id);
       setProperties((prev) => prev.filter((property) => property.id !== id));
-      setFilteredProperties((prev) => prev.filter((property) => property.id !== id));
+      setFilteredProperties((prev) =>
+        prev.filter((property) => property.id !== id),
+      );
     } catch (e: any) {
       setError(e?.message || "No se pudo eliminar la propiedad");
     }
@@ -193,8 +203,12 @@ export default function Properties() {
     try {
       setError(null);
       const updated = await setPropertyActive(id, nextActive);
-      setProperties((prev) => prev.map((p) => (p.id === id ? { ...p, active: updated.active } : p)));
-      setFilteredProperties((prev) => prev.map((p) => (p.id === id ? { ...p, active: updated.active } : p)));
+      setProperties((prev) =>
+        prev.map((p) => (p.id === id ? { ...p, active: updated.active } : p)),
+      );
+      setFilteredProperties((prev) =>
+        prev.map((p) => (p.id === id ? { ...p, active: updated.active } : p)),
+      );
     } catch (e: any) {
       setError(e?.message || "No se pudo actualizar el estado de la propiedad");
     }
@@ -301,7 +315,7 @@ export default function Properties() {
                   <SelectContent>
                     <SelectItem value="all">Todos los tipos</SelectItem>
                     <SelectItem value="house">Casa</SelectItem>
-                    <SelectItem value="apartment">Apartamento</SelectItem>
+                    <SelectItem value="apartment">Departamento</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -641,12 +655,16 @@ export default function Properties() {
       </div>
 
       {/* Delete Confirmation Dialog */}
-      <AlertDialog open={!!deleteId} onOpenChange={(open) => !open && setDeleteId(null)}>
+      <AlertDialog
+        open={!!deleteId}
+        onOpenChange={(open) => !open && setDeleteId(null)}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Eliminar propiedad</AlertDialogTitle>
             <AlertDialogDescription>
-              ¿Estás seguro de que quieres eliminar esta propiedad? Esta acción no se puede deshacer.
+              ¿Estás seguro de que quieres eliminar esta propiedad? Esta acción
+              no se puede deshacer.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

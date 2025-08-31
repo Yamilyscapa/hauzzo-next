@@ -1,4 +1,9 @@
-import type { PropertyContent, PropertyLocationType, PropertyType, TransactionType } from "@/types/property";
+import type {
+  PropertyContent,
+  PropertyLocationType,
+  PropertyType,
+  TransactionType,
+} from "@/types/property";
 import { apiFetch } from "@/lib/http";
 
 type ApiResponse<T> = {
@@ -65,11 +70,8 @@ function mapProperty(row: any): PropertyContent {
     tags: Array.isArray(row.tags)
       ? row.tags
       : typeof row.tags === "string" && row.tags.startsWith("{")
-      ? row.tags
-          .replace(/[{}]/g, "")
-          .split(",")
-          .filter(Boolean)
-      : [],
+        ? row.tags.replace(/[{}]/g, "").split(",").filter(Boolean)
+        : [],
     bedrooms: Number(row.bedrooms) || 0,
     bathrooms: Number(row.bathrooms) || 0,
     parking: Number(row.parking) || 0,
@@ -80,15 +82,21 @@ function mapProperty(row: any): PropertyContent {
   };
 }
 
-export async function searchProperties(filters: SearchFilters): Promise<PropertyContent[]> {
+export async function searchProperties(
+  filters: SearchFilters,
+): Promise<PropertyContent[]> {
   const params = new URLSearchParams();
   params.set("query", filters.query);
   if (filters.transaction) params.set("transaction", filters.transaction);
   if (filters.type) params.set("type", filters.type);
-  if (filters.min_price != null) params.set("min_price", String(filters.min_price));
-  if (filters.max_price != null) params.set("max_price", String(filters.max_price));
-  if (filters.min_bedrooms != null) params.set("min_bedrooms", String(filters.min_bedrooms));
-  if (filters.max_bedrooms != null) params.set("max_bedrooms", String(filters.max_bedrooms));
+  if (filters.min_price != null)
+    params.set("min_price", String(filters.min_price));
+  if (filters.max_price != null)
+    params.set("max_price", String(filters.max_price));
+  if (filters.min_bedrooms != null)
+    params.set("min_bedrooms", String(filters.min_bedrooms));
+  if (filters.max_bedrooms != null)
+    params.set("max_bedrooms", String(filters.max_bedrooms));
   if (filters.city) params.set("city", filters.city);
   if (filters.state) params.set("state", filters.state);
 
@@ -126,7 +134,9 @@ export async function searchByTags(tags: string[]): Promise<PropertyContent[]> {
   return rows.map(mapProperty);
 }
 
-export async function searchByDescription(query: string): Promise<PropertyContent[]> {
+export async function searchByDescription(
+  query: string,
+): Promise<PropertyContent[]> {
   const res = await apiFetch(`/search/description`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

@@ -137,19 +137,17 @@ export default function Searchbar({ className }: { className?: string }) {
         let out: string[] = [];
         const composeBase = isConnector ? `${base}${lastTok} ` : base;
         // Location first: neighborhoods -> cities -> states
-        const locPh = (
-          isConnector
-            ? [
-                ...takeTopKeys(neighborhoods),
-                ...takeTopKeys(cities),
-                ...takeTopKeys(states),
-              ]
-            : [
-                ...byPref(takeTopKeys(neighborhoods)),
-                ...byPref(takeTopKeys(cities)),
-                ...byPref(takeTopKeys(states)),
-              ]
-        );
+        const locPh = isConnector
+          ? [
+              ...takeTopKeys(neighborhoods),
+              ...takeTopKeys(cities),
+              ...takeTopKeys(states),
+            ]
+          : [
+              ...byPref(takeTopKeys(neighborhoods)),
+              ...byPref(takeTopKeys(cities)),
+              ...byPref(takeTopKeys(states)),
+            ];
         locPh.forEach((v) => (out = pushUnique(out, `${composeBase}${v}`)));
 
         // Tags next: complete last word with tags
@@ -386,13 +384,21 @@ export function SearchbarFilters({ className }: { className?: string }) {
                       }))
                     }
                     onBlur={(e) => {
-                      const n = Number((e.target as HTMLInputElement).value || 0);
-                      pushFilters({ price: { ...filters.price, min: n } as any });
+                      const n = Number(
+                        (e.target as HTMLInputElement).value || 0,
+                      );
+                      pushFilters({
+                        price: { ...filters.price, min: n } as any,
+                      });
                     }}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        const n = Number((e.target as HTMLInputElement).value || 0);
-                        pushFilters({ price: { ...filters.price, min: n } as any });
+                        const n = Number(
+                          (e.target as HTMLInputElement).value || 0,
+                        );
+                        pushFilters({
+                          price: { ...filters.price, min: n } as any,
+                        });
                       }
                     }}
                   />
@@ -414,13 +420,21 @@ export function SearchbarFilters({ className }: { className?: string }) {
                       }))
                     }
                     onBlur={(e) => {
-                      const n = Number((e.target as HTMLInputElement).value || 0);
-                      pushFilters({ price: { ...filters.price, max: n } as any });
+                      const n = Number(
+                        (e.target as HTMLInputElement).value || 0,
+                      );
+                      pushFilters({
+                        price: { ...filters.price, max: n } as any,
+                      });
                     }}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        const n = Number((e.target as HTMLInputElement).value || 0);
-                        pushFilters({ price: { ...filters.price, max: n } as any });
+                        const n = Number(
+                          (e.target as HTMLInputElement).value || 0,
+                        );
+                        pushFilters({
+                          price: { ...filters.price, max: n } as any,
+                        });
                       }
                     }}
                   />
@@ -534,7 +548,12 @@ export function SearchbarFilters({ className }: { className?: string }) {
                 {/* Transaction Type Filter */}
                 <div className="grid gap-2">
                   <Label htmlFor="transaction">Tipo de transacción</Label>
-                  <Select value={filters.transaction} onValueChange={(v: any) => setFilters((f) => ({ ...f, transaction: v }))}>
+                  <Select
+                    value={filters.transaction}
+                    onValueChange={(v: any) =>
+                      setFilters((f) => ({ ...f, transaction: v }))
+                    }
+                  >
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Renta o Venta" />
                     </SelectTrigger>
@@ -552,7 +571,9 @@ export function SearchbarFilters({ className }: { className?: string }) {
                     placeholder="Ciudad"
                     className="min-w-[200px]"
                     value={filters.city}
-                    onChange={(e) => setFilters((f) => ({ ...f, city: e.target.value }))}
+                    onChange={(e) =>
+                      setFilters((f) => ({ ...f, city: e.target.value }))
+                    }
                   />
                 </div>
 
@@ -562,7 +583,9 @@ export function SearchbarFilters({ className }: { className?: string }) {
                     placeholder="Estado"
                     className="min-w-[200px]"
                     value={filters.state}
-                    onChange={(e) => setFilters((f) => ({ ...f, state: e.target.value }))}
+                    onChange={(e) =>
+                      setFilters((f) => ({ ...f, state: e.target.value }))
+                    }
                   />
                 </div>
 
@@ -624,7 +647,10 @@ export function SearchbarFilters({ className }: { className?: string }) {
                 <AlertDialogCancel className="w-full sm:w-auto">
                   Cancelar
                 </AlertDialogCancel>
-                <AlertDialogAction className="w-full sm:w-auto" onClick={applyFilters}>
+                <AlertDialogAction
+                  className="w-full sm:w-auto"
+                  onClick={applyFilters}
+                >
                   Aplicar filtros
                 </AlertDialogAction>
               </AlertDialogFooter>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 import NavWrapper from "@/components/shared/nav-wrapper";
 
@@ -22,7 +23,9 @@ export default function RootLayout({
     <html lang="es">
       <body className={`${inter.variable} antialiased overflow-y-scroll`}>
         {/* Site nav renders itself inside a container; admin pages render nothing */}
-        <NavWrapper />
+        <Suspense fallback={null}>
+          <NavWrapper />
+        </Suspense>
         {children}
       </body>
     </html>

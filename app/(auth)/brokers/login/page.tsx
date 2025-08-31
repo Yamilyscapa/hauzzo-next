@@ -50,8 +50,6 @@ export default function LoginPage() {
       const ok = await check();
       if (ok) {
         router.push("/dashboard");
-      } else {
-        alert("Error al iniciar sesión");
       }
     };
     // Only check if not already authenticated
@@ -68,16 +66,15 @@ export default function LoginPage() {
         {validationError && (
           <Alert variant="destructive">
             <AlertTitle>Faltan credenciales</AlertTitle>
-            <AlertDescription>
-              {validationError}
-            </AlertDescription>
+            <AlertDescription>{validationError}</AlertDescription>
           </Alert>
         )}
         {showUnauthorized && (
           <Alert variant="destructive">
             <AlertTitle>Error de autenticación</AlertTitle>
             <AlertDescription>
-              Credenciales inválidas. Verifica tu correo electrónico o contraseña.
+              Credenciales inválidas. Verifica tu correo electrónico o
+              contraseña.
             </AlertDescription>
           </Alert>
         )}

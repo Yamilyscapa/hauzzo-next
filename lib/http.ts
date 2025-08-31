@@ -13,7 +13,7 @@ function withBase(pathOrUrl: string): string {
 export async function apiFetch(
   pathOrUrl: string,
   init?: RequestInit,
-  opts?: { refreshRole?: "broker" | "user"; skipRefresh?: boolean }
+  opts?: { refreshRole?: "broker" | "user"; skipRefresh?: boolean },
 ): Promise<Response> {
   const url = withBase(pathOrUrl);
 
@@ -29,7 +29,8 @@ export async function apiFetch(
 
   // Attempt a token refresh and retry once
   const state = useSessionStore.getState();
-  const role = opts?.refreshRole ?? (state.role as "broker" | "user") ?? "broker";
+  const role =
+    opts?.refreshRole ?? (state.role as "broker" | "user") ?? "broker";
 
   const refreshRes = await fetch(withBase(`/auth/${role}/refresh`), {
     method: "POST",
@@ -41,4 +42,3 @@ export async function apiFetch(
   res = await doFetch();
   return res;
 }
-

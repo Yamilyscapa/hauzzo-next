@@ -1,7 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -93,7 +99,7 @@ export default function SettingsPage() {
     }
     if (!strongPw(next)) {
       setPwError(
-        "La contraseña debe tener mínimo 8 caracteres, mayúscula, minúscula, número y símbolo."
+        "La contraseña debe tener mínimo 8 caracteres, mayúscula, minúscula, número y símbolo.",
       );
       return;
     }
@@ -115,7 +121,9 @@ export default function SettingsPage() {
       <div className="max-w-7xl mx-auto flex flex-col gap-6">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Configuración</h1>
-          <p className="text-gray-600 mt-2">Actualiza los detalles de tu cuenta.</p>
+          <p className="text-gray-600 mt-2">
+            Actualiza los detalles de tu cuenta.
+          </p>
         </div>
 
         <Card>
@@ -133,30 +141,53 @@ export default function SettingsPage() {
             {saved && (
               <Alert>
                 <AlertTitle>Guardado</AlertTitle>
-                <AlertDescription>Los cambios se han guardado correctamente.</AlertDescription>
+                <AlertDescription>
+                  Los cambios se han guardado correctamente.
+                </AlertDescription>
               </Alert>
             )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="firstName">Nombre</Label>
-                <Input id="firstName" value={form.firstName}
-                  onChange={(e) => setForm((f) => ({ ...f, firstName: e.target.value }))} />
+                <Input
+                  id="firstName"
+                  value={form.firstName}
+                  onChange={(e) =>
+                    setForm((f) => ({ ...f, firstName: e.target.value }))
+                  }
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="lastName">Apellido</Label>
-                <Input id="lastName" value={form.lastName}
-                  onChange={(e) => setForm((f) => ({ ...f, lastName: e.target.value }))} />
+                <Input
+                  id="lastName"
+                  value={form.lastName}
+                  onChange={(e) =>
+                    setForm((f) => ({ ...f, lastName: e.target.value }))
+                  }
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" value={form.email}
-                  onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} />
+                <Input
+                  id="email"
+                  type="email"
+                  value={form.email}
+                  onChange={(e) =>
+                    setForm((f) => ({ ...f, email: e.target.value }))
+                  }
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="phone">Teléfono</Label>
-                <Input id="phone" value={form.phone}
-                  onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))} />
+                <Input
+                  id="phone"
+                  value={form.phone}
+                  onChange={(e) =>
+                    setForm((f) => ({ ...f, phone: e.target.value }))
+                  }
+                />
               </div>
             </div>
             <div className="flex justify-end">
@@ -172,7 +203,8 @@ export default function SettingsPage() {
           <CardHeader>
             <CardTitle>Cambiar contraseña</CardTitle>
             <CardDescription>
-              Actualiza tu contraseña. Debe incluir mayúscula, minúscula, número y símbolo.
+              Actualiza tu contraseña. Debe incluir mayúscula, minúscula, número
+              y símbolo.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -199,7 +231,9 @@ export default function SettingsPage() {
                   type="password"
                   autoComplete="current-password"
                   value={pwForm.current}
-                  onChange={(e) => setPwForm((f) => ({ ...f, current: e.target.value }))}
+                  onChange={(e) =>
+                    setPwForm((f) => ({ ...f, current: e.target.value }))
+                  }
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -209,17 +243,23 @@ export default function SettingsPage() {
                   type="password"
                   autoComplete="new-password"
                   value={pwForm.next}
-                  onChange={(e) => setPwForm((f) => ({ ...f, next: e.target.value }))}
+                  onChange={(e) =>
+                    setPwForm((f) => ({ ...f, next: e.target.value }))
+                  }
                 />
               </div>
               <div className="flex flex-col gap-2 md:col-span-2">
-                <Label htmlFor="confirmPassword">Confirmar nueva contraseña</Label>
+                <Label htmlFor="confirmPassword">
+                  Confirmar nueva contraseña
+                </Label>
                 <Input
                   id="confirmPassword"
                   type="password"
                   autoComplete="new-password"
                   value={pwForm.confirm}
-                  onChange={(e) => setPwForm((f) => ({ ...f, confirm: e.target.value }))}
+                  onChange={(e) =>
+                    setPwForm((f) => ({ ...f, confirm: e.target.value }))
+                  }
                 />
               </div>
             </div>

@@ -1,12 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { createBroker, getBrokerByEmail, updateBroker, type Broker } from "@/lib/brokers";
+import {
+  createBroker,
+  getBrokerByEmail,
+  updateBroker,
+  type Broker,
+} from "@/lib/brokers";
 
 export default function BrokersPage() {
   // Create broker form state
@@ -47,7 +58,13 @@ export default function BrokersPage() {
         password: createForm.password,
       });
       setCreated(b);
-      setCreateForm({ firstName: "", lastName: "", email: "", phone: "", password: "" });
+      setCreateForm({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        password: "",
+      });
     } catch (e: any) {
       setCreateError(e?.message || "No se pudo crear el broker");
     } finally {
@@ -108,7 +125,9 @@ export default function BrokersPage() {
         <Card>
           <CardHeader>
             <CardTitle>Crear broker</CardTitle>
-            <CardDescription>Registra un nuevo broker en el sistema.</CardDescription>
+            <CardDescription>
+              Registra un nuevo broker en el sistema.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {createError && (
@@ -121,7 +140,8 @@ export default function BrokersPage() {
               <Alert>
                 <AlertTitle>Creado</AlertTitle>
                 <AlertDescription>
-                  Broker {created.firstName} {created.lastName} ({created.email}) creado.
+                  Broker {created.firstName} {created.lastName} ({created.email}
+                  ) creado.
                 </AlertDescription>
               </Alert>
             )}
@@ -129,29 +149,56 @@ export default function BrokersPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="firstName">Nombre</Label>
-                <Input id="firstName" value={createForm.firstName}
-                  onChange={(e) => setCreateForm({ ...createForm, firstName: e.target.value })} />
+                <Input
+                  id="firstName"
+                  value={createForm.firstName}
+                  onChange={(e) =>
+                    setCreateForm({ ...createForm, firstName: e.target.value })
+                  }
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="lastName">Apellido</Label>
-                <Input id="lastName" value={createForm.lastName}
-                  onChange={(e) => setCreateForm({ ...createForm, lastName: e.target.value })} />
+                <Input
+                  id="lastName"
+                  value={createForm.lastName}
+                  onChange={(e) =>
+                    setCreateForm({ ...createForm, lastName: e.target.value })
+                  }
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" value={createForm.email}
-                  onChange={(e) => setCreateForm({ ...createForm, email: e.target.value })} />
+                <Input
+                  id="email"
+                  type="email"
+                  value={createForm.email}
+                  onChange={(e) =>
+                    setCreateForm({ ...createForm, email: e.target.value })
+                  }
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="phone">Teléfono (opcional)</Label>
-                <Input id="phone" value={createForm.phone}
-                  onChange={(e) => setCreateForm({ ...createForm, phone: e.target.value })} />
+                <Input
+                  id="phone"
+                  value={createForm.phone}
+                  onChange={(e) =>
+                    setCreateForm({ ...createForm, phone: e.target.value })
+                  }
+                />
               </div>
               <div className="flex flex-col gap-2 md:col-span-2">
                 <Label htmlFor="password">Contraseña</Label>
-                <Input id="password" type="password" value={createForm.password}
-                  onChange={(e) => setCreateForm({ ...createForm, password: e.target.value })}
-                  placeholder="Mínimo 8 caracteres, mayúsculas, minúsculas, número y símbolo" />
+                <Input
+                  id="password"
+                  type="password"
+                  value={createForm.password}
+                  onChange={(e) =>
+                    setCreateForm({ ...createForm, password: e.target.value })
+                  }
+                  placeholder="Mínimo 8 caracteres, mayúsculas, minúsculas, número y símbolo"
+                />
               </div>
             </div>
 
@@ -167,7 +214,9 @@ export default function BrokersPage() {
         <Card>
           <CardHeader>
             <CardTitle>Buscar por email</CardTitle>
-            <CardDescription>Encuentra un broker por correo para editar sus datos.</CardDescription>
+            <CardDescription>
+              Encuentra un broker por correo para editar sus datos.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {searchError && (
@@ -184,7 +233,11 @@ export default function BrokersPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
-              <Button onClick={handleSearch} variant="outline" disabled={searching}>
+              <Button
+                onClick={handleSearch}
+                variant="outline"
+                disabled={searching}
+              >
                 {searching ? "Buscando..." : "Buscar"}
               </Button>
             </div>
@@ -195,14 +248,24 @@ export default function BrokersPage() {
                   <Label>Nombre</Label>
                   <Input
                     value={result.firstName || ""}
-                    onChange={(e) => setResult({ ...(result as Broker), firstName: e.target.value })}
+                    onChange={(e) =>
+                      setResult({
+                        ...(result as Broker),
+                        firstName: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div className="flex flex-col gap-2">
                   <Label>Apellido</Label>
                   <Input
                     value={result.lastName || ""}
-                    onChange={(e) => setResult({ ...(result as Broker), lastName: e.target.value })}
+                    onChange={(e) =>
+                      setResult({
+                        ...(result as Broker),
+                        lastName: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -210,14 +273,24 @@ export default function BrokersPage() {
                   <Input
                     type="email"
                     value={result.email}
-                    onChange={(e) => setResult({ ...(result as Broker), email: e.target.value })}
+                    onChange={(e) =>
+                      setResult({
+                        ...(result as Broker),
+                        email: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div className="flex flex-col gap-2">
                   <Label>Teléfono</Label>
                   <Input
                     value={result.phone || ""}
-                    onChange={(e) => setResult({ ...(result as Broker), phone: e.target.value })}
+                    onChange={(e) =>
+                      setResult({
+                        ...(result as Broker),
+                        phone: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 {saveError && (

@@ -16,13 +16,13 @@ const menuItems = [
     href: "/",
   },
   {
-    label: "Buscar", 
+    label: "Buscar",
     href: "/search",
   },
   {
     label: "Soy asesor",
     href: "/",
-  }
+  },
 ];
 
 export default function Nav() {
@@ -48,9 +48,9 @@ export default function Nav() {
 
             <div className="flex flex-col gap-4 mt-6 px-4">
               {menuItems.map((item) => (
-                  <Link key={item.href} href={item.href}>
-                    <span>{item.label}</span>
-                  </Link>
+                <Link key={item.href} href={item.href}>
+                  <span>{item.label}</span>
+                </Link>
               ))}
 
               <Button className="mt-4 w-full">
@@ -63,16 +63,16 @@ export default function Nav() {
         </Sheet>
 
         <ul className="hidden md:flex items-center gap-8">
-            {menuItems.map((item) => (
-                  <Link key={item.label} href={item.href}>
-                    <span>{item.label}</span>
-                  </Link>
-              ))}
-            <Button>
-              <Link href="/brokers/login">
-                <span>Iniciar sesión</span>
-              </Link>
-            </Button>
+          {menuItems.map((item) => (
+            <Link key={item.label} href={item.href}>
+              <span>{item.label}</span>
+            </Link>
+          ))}
+          <Button>
+            <Link href="/brokers/login">
+              <span>Iniciar sesión</span>
+            </Link>
+          </Button>
         </ul>
       </nav>
     </>

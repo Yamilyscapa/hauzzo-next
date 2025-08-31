@@ -200,7 +200,9 @@ export default function PropertyPage({ params }: PropertyPageProps) {
       <div className="py-5 container mx-auto px-4">
         <Alert variant="destructive">
           <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{error || "Propiedad no encontrada"}</AlertDescription>
+          <AlertDescription>
+            {error || "Propiedad no encontrada"}
+          </AlertDescription>
         </Alert>
       </div>
     );
@@ -314,7 +316,11 @@ export default function PropertyPage({ params }: PropertyPageProps) {
                 variant="default"
                 size="lg"
                 disabled={leadSent}
-                title={leadSent ? "Ya enviaste una solicitud para esta propiedad" : undefined}
+                title={
+                  leadSent
+                    ? "Ya enviaste una solicitud para esta propiedad"
+                    : undefined
+                }
                 onClick={() => {
                   if (leadSent) return;
                   setLeadMode("contact");

@@ -75,7 +75,12 @@ export async function getBrokerById(id: string): Promise<Broker | null> {
 
 export async function updateBroker(
   id: string,
-  data: Partial<Pick<CreateBrokerInput, "firstName" | "lastName" | "email" | "phone" | "password">>
+  data: Partial<
+    Pick<
+      CreateBrokerInput,
+      "firstName" | "lastName" | "email" | "phone" | "password"
+    >
+  >,
 ): Promise<Broker> {
   const res = await apiFetch(`/brokers/edit/${encodeURIComponent(id)}`, {
     method: "PUT",
@@ -97,4 +102,3 @@ async function safeJson(res: Response): Promise<any | null> {
     return null;
   }
 }
-

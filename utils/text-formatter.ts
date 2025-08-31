@@ -7,23 +7,17 @@ export function formatPrice(price: number): string {
 }
 
 export function formatDescription(
-  description: string,
-  maxWords: number = 10,
+  text: string,
+  maxCharacters: number = 10,
 ): string {
-  if (!description || typeof description !== "string") {
+  if (!text || typeof text !== "string") {
     return "";
   }
 
-  const trimmed = description.trim();
+  const trimmed = text.trim();
   if (!trimmed) {
     return "";
   }
 
-  const words = trimmed.split(/\s+/);
-
-  if (words.length <= maxWords) {
-    return trimmed;
-  }
-
-  return words.slice(0, maxWords).join(" ") + "...";
+  return trimmed.slice(0, maxCharacters) + "...";
 }

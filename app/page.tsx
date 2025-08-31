@@ -1,31 +1,20 @@
+"use client";
 import Property from "@/components/shared/property-card";
 import { PropertyContent } from "@/types/property";
 import Searchbar from "@/components/shared/searchbar";
+import { listProperties } from "@/lib/properties";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const content: PropertyContent = {
-    id: "1",
-    title: "Casa en la playa",
-    description:
-      "Hecha en casa de madera, con una vista a la playa y un jardín de 100m2 con árboles frutales y una piscina. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-    price: 15000,
-    tags: ["Casa", "Playa"],
-    bedrooms: 3,
-    bathrooms: 2,
-    parking: 1,
-    location: {
-      zip: "12345",
-      city: "Puebla",
-      state: "Puebla",
-      street: "Calle 123",
-      address: "Calle 123",
-      neighborhood: "Centro",
-      addressNumber: "123",
-    },
-    type: "house",
-    transaction: "sale",
-    images: ["https://placehold.co/600x800"],
-  };
+  const [properties, setProperties] = useState<PropertyContent[]>([]);
+
+  useEffect(() => {
+    const loadProperties = async () => {
+      const properties = await listProperties(8);
+      setProperties(properties);
+    };
+    loadProperties();
+  }, []);
 
   return (
     <section className="hero font-inter min-h-screen flex items-center justify-center px-4 py-8 md:py-16">
@@ -46,11 +35,12 @@ export default function Home() {
           <Searchbar />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 py-10">
-          <Property {...content} />
-          <Property {...content} />
-          <Property {...content} />
-          <Property {...content} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 py-10 w-full">
+          {properties.map((property) => (
+            <div key={property.id} className="w-full">
+              <Property {...property} />
+            </div>
+          ))}
         </div>
       </div>
     </section>

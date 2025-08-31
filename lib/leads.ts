@@ -15,11 +15,15 @@ export type CreateLeadInput = {
 };
 
 export async function createLead(input: CreateLeadInput) {
-  const res = await apiFetch(`/leads/create`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(input),
-  }, { skipRefresh: true });
+  const res = await apiFetch(
+    `/leads/create`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(input),
+    },
+    { skipRefresh: true },
+  );
 
   const json: ApiResponse<any> = await res.json();
   if (!res.ok) {
@@ -41,7 +45,7 @@ export type LeadRow = {
 };
 
 export async function listLeads(q?: string): Promise<LeadRow[]> {
-  const qs = q && q.trim() ? `?q=${encodeURIComponent(q.trim())}` : '';
+  const qs = q && q.trim() ? `?q=${encodeURIComponent(q.trim())}` : "";
   const res = await apiFetch(`/leads/mine${qs}`);
   const json: ApiResponse<any[]> = await res.json();
   if (!res.ok) {
@@ -55,8 +59,13 @@ export async function listLeads(q?: string): Promise<LeadRow[]> {
     lead_email: r.lead_email ?? null,
     lead_phone: r.lead_phone ?? null,
     created_at: r.created_at,
-    properties_count: typeof r.properties_count === 'string' ? parseInt(r.properties_count) : r.properties_count,
+    properties_count:
+      typeof r.properties_count === "string"
+        ? parseInt(r.properties_count)
+        : r.properties_count,
     property_ids: Array.isArray(r.property_ids) ? r.property_ids : [],
-    properties: Array.isArray(r.properties) ? r.properties.map((p: any) => ({ id: p.id, title: p.title })) : [],
+    properties: Array.isArray(r.properties)
+      ? r.properties.map((p: any) => ({ id: p.id, title: p.title }))
+      : [],
   }));
 }

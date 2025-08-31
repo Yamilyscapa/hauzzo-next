@@ -3,13 +3,24 @@ import Property from "@/components/shared/property-card";
 import { PropertyContent } from "@/types/property";
 import { SearchbarFilters } from "@/components/shared/searchbar";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { searchByDescription, searchByTags, searchProperties } from "@/lib/search";
+import {
+  searchByDescription,
+  searchByTags,
+  searchProperties,
+} from "@/lib/search";
 import { listProperties } from "@/lib/properties";
 
 export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="p-6 text-center">Cargando...</div>}>
+      <SearchPageContent />
+    </Suspense>
+  );
+}
+
+function SearchPageContent() {
   const params = useSearchParams();
   const [properties, setProperties] = useState<PropertyContent[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -62,14 +73,31 @@ export default function SearchPage() {
     const run = async () => {
       try {
         const passFilters = (p: any) => {
-          if (filters.transaction && p.transaction !== filters.transaction) return false;
+          if (filters.transaction && p.transaction !== filters.transaction)
+            return false;
           if (filters.type && p.type !== filters.type) return false;
-          if (filters.min_price != null && p.price < filters.min_price) return false;
-          if (filters.max_price != null && p.price > filters.max_price) return false;
-          if (filters.min_bedrooms != null && p.bedrooms < filters.min_bedrooms) return false;
-          if (filters.max_bedrooms != null && p.bedrooms > filters.max_bedrooms) return false;
-          if (filters.city && !p.location?.city?.toLowerCase().includes(String(filters.city).toLowerCase())) return false;
-          if (filters.state && !p.location?.state?.toLowerCase().includes(String(filters.state).toLowerCase())) return false;
+          if (filters.min_price != null && p.price < filters.min_price)
+            return false;
+          if (filters.max_price != null && p.price > filters.max_price)
+            return false;
+          if (filters.min_bedrooms != null && p.bedrooms < filters.min_bedrooms)
+            return false;
+          if (filters.max_bedrooms != null && p.bedrooms > filters.max_bedrooms)
+            return false;
+          if (
+            filters.city &&
+            !p.location?.city
+              ?.toLowerCase()
+              .includes(String(filters.city).toLowerCase())
+          )
+            return false;
+          if (
+            filters.state &&
+            !p.location?.state
+              ?.toLowerCase()
+              .includes(String(filters.state).toLowerCase())
+          )
+            return false;
           return true;
         };
 
@@ -148,16 +176,16 @@ export default function SearchPage() {
       <div className="w-full max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-3xl font-semibold text-gray-800">
-            {isLoading ? "Buscando..." : `Resultados: ${properties.length} propiedades`}
+            {isLoading
+              ? "Buscando..."
+              : `Resultados: ${properties.length} propiedades`}
           </h2>
           {isLoading && (
             <p className="text-sm text-muted-foreground">Cargando...</p>
           )}
         </div>
         <Separator className="my-4" />
-        {error && (
-          <div className="text-red-600 text-sm mb-4">{error}</div>
-        )}
+        {error && <div className="text-red-600 text-sm mb-4">{error}</div>}
 
         {!isLoading && !error && properties.length === 0 && (
           <div className="flex justify-center py-8">

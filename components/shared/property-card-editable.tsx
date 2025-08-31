@@ -32,10 +32,12 @@ export default function PropertyCard({
           <img
             src={property.images[0]}
             alt={property.title}
-            className={`w-full h-full object-cover ${property.active === false ? 'grayscale opacity-70' : ''}`}
+            className={`w-full h-full object-cover ${property.active === false ? "grayscale opacity-70" : ""}`}
           />
         ) : (
-          <div className={`w-full h-full bg-gray-200 flex items-center justify-center ${property.active === false ? 'grayscale opacity-70' : ''}`}>
+          <div
+            className={`w-full h-full bg-gray-200 flex items-center justify-center ${property.active === false ? "grayscale opacity-70" : ""}`}
+          >
             <svg
               className="h-12 w-12 text-gray-400"
               fill="none"
@@ -62,7 +64,9 @@ export default function PropertyCard({
             {formattedContent.transaction}
           </span>
           {property.active === false && (
-            <span className="px-2 py-1 text-xs font-semibold rounded-full bg-gray-200 text-gray-700 border">Deshabilitada</span>
+            <span className="px-2 py-1 text-xs font-semibold rounded-full bg-gray-200 text-gray-700 border">
+              Deshabilitada
+            </span>
           )}
         </div>
       </div>
@@ -107,10 +111,12 @@ export default function PropertyCard({
           <Button
             size="sm"
             variant="outline"
-            className={`${property.active === false ? 'text-green-700' : 'text-gray-700'}`}
-            onClick={() => onToggleActive?.(property.id, !(property.active !== false))}
+            className={`${property.active === false ? "text-green-700" : "text-gray-700"}`}
+            onClick={() =>
+              onToggleActive?.(property.id, !(property.active !== false))
+            }
           >
-            {property.active === false ? 'Activar' : 'Desactivar'}
+            {property.active === false ? "Activar" : "Desactivar"}
           </Button>
           <Button
             size="sm"

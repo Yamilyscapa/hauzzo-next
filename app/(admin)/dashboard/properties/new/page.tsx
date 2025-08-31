@@ -190,7 +190,7 @@ export default function Properties() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="house">Casa</SelectItem>
-                      <SelectItem value="apartment">Apartamento</SelectItem>
+                      <SelectItem value="apartment">Departamento</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -448,7 +448,9 @@ export default function Properties() {
                       multiple
                       className="hidden"
                       onChange={(e) => {
-                        const list = e.target.files ? Array.from(e.target.files) : [];
+                        const list = e.target.files
+                          ? Array.from(e.target.files)
+                          : [];
                         setFiles(list);
                       }}
                     />
@@ -464,7 +466,9 @@ export default function Properties() {
                     PNG, JPG, GIF hasta 10MB
                   </p>
                   {files.length > 0 && (
-                    <p className="text-sm text-gray-600">{files.length} archivo(s) seleccionado(s)</p>
+                    <p className="text-sm text-gray-600">
+                      {files.length} archivo(s) seleccionado(s)
+                    </p>
                   )}
                 </div>
               </div>
@@ -475,11 +479,16 @@ export default function Properties() {
 
           {/* Submit Buttons */}
           <div className="flex justify-end gap-4">
-            <Button type="button" variant="outline" onClick={() => router.push("/dashboard/properties")}
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => router.push("/dashboard/properties")}
             >
               Cancelar
             </Button>
-            <Button type="submit" disabled={saving}>{saving ? "Creando..." : "Crear Propiedad"}</Button>
+            <Button type="submit" disabled={saving}>
+              {saving ? "Creando..." : "Crear Propiedad"}
+            </Button>
           </div>
         </form>
       </div>

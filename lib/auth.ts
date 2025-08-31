@@ -6,13 +6,17 @@ export async function auth(
   email: string,
   password: string,
 ) {
-  const response = await apiFetch(`/auth/${role}/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+  const response = await apiFetch(
+    `/auth/${role}/login`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
     },
-    body: JSON.stringify({ email, password }),
-  }, { skipRefresh: true });
+    { skipRefresh: true },
+  );
 
   if (response.status === 401) {
     throw new Error("Unauthorized");
@@ -74,7 +78,11 @@ export async function logout(
   role: "broker" | "user" = "broker",
 ): Promise<boolean> {
   try {
-    const response = await apiFetch(`/auth/${role}/logout`, { method: "POST" }, { skipRefresh: true });
+    const response = await apiFetch(
+      `/auth/${role}/logout`,
+      { method: "POST" },
+      { skipRefresh: true },
+    );
 
     if (!response.ok) {
       return false;

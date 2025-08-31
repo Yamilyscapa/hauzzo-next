@@ -9,7 +9,6 @@ type ApiResponse<T> = {
   error?: any;
 };
 
-
 function parsePgTextArray(val: any): string[] {
   if (Array.isArray(val)) return val as string[];
   if (typeof val === "string" && val.startsWith("{") && val.endsWith("}")) {
@@ -125,7 +124,12 @@ export async function createProperty(input: CreatePropertyInput) {
 
 export async function updateProperty(
   id: string,
-  data: Partial<Pick<CreatePropertyInput, "title" | "description" | "price" | "tags" | "location">>,
+  data: Partial<
+    Pick<
+      CreatePropertyInput,
+      "title" | "description" | "price" | "tags" | "location"
+    >
+  >,
 ) {
   const res = await apiFetch(`/properties/edit/${id}`, {
     method: "PUT",
@@ -148,7 +152,7 @@ export async function deleteProperty(id: string) {
 export async function updatePropertyImages(
   id: string,
   keepUrls: string[],
-  files: File[]
+  files: File[],
 ) {
   const fd = new FormData();
   fd.append("keep", JSON.stringify(keepUrls || []));
