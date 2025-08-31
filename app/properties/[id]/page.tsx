@@ -243,7 +243,7 @@ export default function PropertyPage({ params }: PropertyPageProps) {
             </div>
 
             {/* Property Features */}
-            <div className="grid grid-cols-3 gap-4 py-4 border-t border-b border-gray-200">
+            <div className="flex flex-col gap-6 md:grid grid-cols-3 md:gap-4 py-4 border-t border-b border-gray-200">
               <div className="text-center">
                 <div className="text-2xl font-bold text-gray-900">
                   {property.bedrooms}
