@@ -231,11 +231,11 @@ export default function PropertyPage({ params }: PropertyPageProps) {
             </div>
 
             {/* Tags */}
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap whitespace-nowrap">
               {property.tags.map((tag, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 bg-hauzzo-light text-white text-sm font-medium rounded-full"
+                  className="px-3 py-1 bg-hauzzo-light text-white text-sm font-medium rounded-full whitespace-normal"
                 >
                   {tag}
                 </span>
